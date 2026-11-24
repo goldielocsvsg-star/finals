@@ -1,0 +1,341 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>UWG Nursing Study Hub: HCC3 Final Exam Prep</title>
+<style>
+:root{--ink:#2d2a45;--mu:#6b678a;--bg:#fbf7ff;--ac:#7c6cf0}
+*{box-sizing:border-box}body{margin:0;font-family:"Avenir Next","Trebuchet MS",Verdana,sans-serif;color:var(--ink);background:linear-gradient(160deg,#fdf0f6,#eef4ff 50%,#effaf3);min-height:100vh;line-height:1.5}
+h1,h2,h3{font-family:Georgia,serif;margin:.2em 0}
+header{padding:20px 16px 8px;text-align:center}header h1{font-size:clamp(1.4rem,4vw,2.2rem)}
+.by{color:var(--mu);font-size:.9rem}
+#q{width:min(520px,92%);padding:11px 16px;border-radius:30px;border:2px solid #d9d2ff;font-size:1rem;margin-top:10px}
+#bar{height:8px;background:#e6e0ff;border-radius:8px;width:min(520px,92%);margin:10px auto 0;overflow:hidden}#bar i{display:block;height:100%;background:linear-gradient(90deg,#ffb3c7,#b9a8ff,#9fe3c1);width:0}
+nav{display:flex;gap:8px;overflow-x:auto;padding:10px 14px;position:sticky;top:0;background:#fbf7ffee;z-index:5}
+nav button,.btn{border:0;border-radius:20px;padding:9px 16px;font-weight:700;color:var(--ink);background:#e8e2ff;cursor:pointer;white-space:nowrap;font-size:.95rem}
+nav button.on,.btn{background:var(--ac);color:#fff}.btn.alt{background:#e8e2ff;color:var(--ink)}
+main{max-width:1000px;margin:auto;padding:12px 14px 60px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.card,.mod{background:#fff;border-radius:18px;padding:16px;box-shadow:0 3px 14px #7c6cf01f;margin-bottom:12px}
+.mod{cursor:pointer;margin:0;border:2px solid #0000}.mod:hover{border-color:#7c6cf0}
+details{background:#fff;border-radius:14px;margin:8px 0;padding:10px 14px;border-left:8px solid var(--c,#ccc);box-shadow:0 2px 8px #0001}summary{font-weight:700;cursor:pointer}
+table{border-collapse:collapse;width:100%;font-size:.9rem}td,th{border:1px solid #e4def8;padding:7px;text-align:left;vertical-align:top}th{background:#f1ecff}
+.tw{overflow-x:auto}.muted{color:var(--mu);font-size:.85rem}
+.opt{display:block;width:100%;text-align:left;margin:7px 0;padding:11px 14px;border-radius:12px;border:2px solid #e4def8;background:#fff;font-size:.95rem;cursor:pointer;color:var(--ink)}
+.opt.ok{background:#d4f5dd;border-color:#4cb97a}.opt.no{background:#ffd9df;border-color:#e0607a}
+.fc{perspective:900px;height:260px;cursor:pointer;margin:12px 0}.fi{position:relative;height:100%;transition:transform .5s;transform-style:preserve-3d}.fc.f .fi{transform:rotateY(180deg)}
+.fs{position:absolute;inset:0;backface-visibility:hidden;border-radius:20px;padding:20px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:auto;box-shadow:0 4px 16px #0002}
+.fs.fr{background:#dcd6ff;font-size:1.3rem;font-weight:700;font-family:Georgia,serif}.fs.bk{background:#d4f5dd;transform:rotateY(180deg);font-size:1rem}
+.pill{display:inline-block;padding:2px 10px;border-radius:12px;font-size:.75rem;font-weight:700;background:#e8e2ff}
+.mt{background:#fff6b8;border-radius:12px;padding:10px 14px;margin:10px 0}
+.flag{background:#fff0d6;border-left:6px solid #ff9f43;border-radius:10px;padding:8px 12px;margin:8px 0;font-size:.9rem}
+select,.in{padding:9px;border-radius:10px;border:2px solid #d9d2ff;font-size:.95rem;max-width:100%}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mg button{padding:10px;border-radius:12px;border:2px solid #e4def8;background:#fff;font-size:.85rem;cursor:pointer;color:var(--ink);text-align:left}.mg button.sel{border-color:var(--ac);background:#efeaff}.mg button.done{background:#d4f5dd;border-color:#4cb97a}
+footer{text-align:center;padding:20px;color:var(--mu);font-size:.9rem}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #4a3fd0;outline-offset:2px}
+</style></head><body>
+<header><h1>UWG Nursing Study Hub: HCC3 Final Exam Prep</h1><div class="by">Created by Jacqueline Daniel &bull; BSN Class of May 2027</div>
+<input id="q" type="search" placeholder="Search conditions, medications, concepts..." aria-label="Search"><div id="bar"><i></i></div><div class="muted" id="bt"></div></header>
+<nav id="nav"></nav><main id="app"></main>
+<footer><b>Created by Nursing Students, for Nursing Students.</b><br>Supplemental study aid built from the HCC3 final review guide. Always verify against course materials and protocols.</footer>
+<script>
+const $=s=>document.querySelector(s),sh=a=>[...a].sort(()=>Math.random()-.5);
+let S;try{S=JSON.parse(localStorage.getItem('hcc3')||'{}')}catch(e){S={}}
+S.done=S.done||{};S.known=S.known||{};S.scores=S.scores||[];
+const save=()=>{try{localStorage.setItem('hcc3',JSON.stringify(S))}catch(e){}};
+const COL=['#ffd6e0','#ffe8c7','#fff6b8','#d4f5dd','#cdeffd','#dcd6ff','#f9d4f5','#d2f0e8','#ffdcc8','#e0e8ff'];
+/* ===== MODULE DATA: [title, memory trick, rows "Topic|text", compare table] ===== */
+const M=[
+["GI Inflammation & Perioperative Care","GERD: head UP 2-3 h after meals. UC = Ulcers Continuous from rectum; Crohn = skip lesions, Chunks anywhere (mouth to anus).",[
+"GERD|Weak lower esophageal sphincter lets acid reflux; heartburn, regurgitation. Small meals, avoid triggers, upright 2-3 h after meals, elevate HOB. Dysphagia or bleeding needs evaluation.",
+"Gastritis / PUD|Mucosal inflammation/ulcer; H. pylori and NSAIDs are major risks. Epigastric pain, nausea, melena. PPI + eradication regimen; avoid NSAIDs. Sudden rigid abdomen = perforation (urgent).",
+"IBS|Functional disorder: abdominal pain with altered stool pattern, no destructive inflammation. Individualized fiber, hydration, stress management. Bleeding/weight loss not typical.",
+"Crohn disease|Transmural, skip lesions anywhere in GI tract; fistulas, strictures, malabsorption. In flare assess hydration, nutrition, pain, obstruction; anti-inflammatory therapy.",
+"Ulcerative colitis|Continuous mucosal inflammation starting in rectum; bloody diarrhea, urgency. Monitor anemia, dehydration, toxic megacolon; colectomy can eliminate colonic disease.",
+"Diverticular disease|Diverticulosis = pouches, often silent; fiber when appropriate. Diverticulitis = inflamed pouches, LLQ pain, fever; temporary liquids then advance; watch abscess/perforation.",
+"Appendicitis|Periumbilical pain migrating to RLQ, nausea, fever. NPO, IV fluids, surgical evaluation; NO laxatives, enemas, or heat. Sudden relief then diffuse pain may mean rupture.",
+"Colonoscopy / EGD|Verify consent, bowel prep (colonoscopy), NPO, sedation plan. After EGD verify swallowing before intake; after sedation monitor airway, VS, alertness. Severe pain, fever, significant bleeding abnormal.",
+"NG / enteral feeding|Verify initial placement by x-ray; follow policy for ongoing checks. HOB 30-45 degrees during feeding; monitor aspiration, tolerance, hydration, patency.",
+"TPN / lipids|Central access for hyperosmolar TPN; asepsis, pump, monitor glucose/electrolytes; do not stop abruptly without a plan. Watch infection and refeeding syndrome.",
+"Perioperative care|Pre-op: identity, consent, allergies, NPO, baseline. Intra-op: time-out, positioning. Post-op: ABCs, bleeding, pain, mobility, pulmonary hygiene, VTE prevention.",
+"Dehiscence / evisceration|Dehiscence = wound separation; evisceration = organs protrude. Stay with patient, call help, low Fowler with knees bent, sterile saline-moistened dressing, NPO; NEVER push organs back."],
+[["","Crohn disease","Ulcerative colitis"],["Depth","Transmural","Mucosal"],["Pattern","Skip lesions, anywhere GI","Continuous from rectum"],["Hallmarks","Fistulas, strictures, malabsorption","Bloody diarrhea, urgency"],["Surgery","Not a cure","Colectomy removes colonic disease"]]],
+["Liver, Pancreas & Biliary","Hepatitis: A/E = fecal-oral (Eat); B/C/D = blood (D needs B). Lactulose pulls ammonia out: titrate to 2-3 soft stools (verify goal).",[
+"Hepatitis|A/E usually fecal-oral; B blood, sexual, perinatal; C mainly blood; D requires B. Vaccines for A and B; standard precautions, safe sharps.",
+"Cirrhosis|Fibrosis + portal HTN cause ascites, varices, splenomegaly; low albumin, high INR. Monitor bleeding, daily weights, sodium, renal function.",
+"Encephalopathy|Confusion, asterixis, altered consciousness. Assess airway and triggers (infection, GI bleed, constipation). Lactulose lowers ammonia; titrate to stool goal, monitor electrolytes.",
+"Variceal bleeding|Hematemesis, melena, shock: ABCs, escalate, IV access, blood as ordered, urgent endoscopy. Propranolol prevents bleeding in selected stable patients, not rescue.",
+"Ascites / hepatorenal syndrome|Sodium restriction, diuretics, daily weight and girth. Rising creatinine or oliguria in advanced liver disease needs urgent evaluation.",
+"Cholelithiasis / cholecystitis|RUQ pain after fatty food, radiates to right shoulder; fever + Murphy sign = inflammation. Jaundice = obstruction; fever + jaundice + RUQ pain = cholangitis.",
+"Pancreatitis|Severe epigastric pain radiating to back, high lipase. IV fluids, analgesia, early oral/enteral nutrition as tolerated; watch shock, hypocalcemia, respiratory failure. Chronic: enzymes with meals.",
+"Liver/pancreas labs|AST/ALT = hepatocellular injury; ALP/bilirubin = cholestasis; INR and albumin = synthesis; lipase = pancreatitis. Trend CBC, glucose, calcium, creatinine.",
+"Paracentesis|Baseline VS, weight/girth, void first, upright as tolerated; monitor hypotension, leakage, bleeding. Albumin may be ordered after large-volume drainage.",
+"Liver biopsy|Check coagulation and consent; monitor bleeding, pain, VS; position per policy (often right side after percutaneous biopsy).",
+"T-tube|Maintain drainage position, assess output/color, avoid kinks; do not clamp or irrigate without order. Report sudden cessation with pain, fever, jaundice.",
+"Liver/biliary nutrition|Avoid alcohol; adequate calories and protein in cirrhosis; individualized sodium restriction for ascites. Low-fat meals for biliary symptoms; enzymes with meals/snacks."]],
+["Cancer & Cellular Regulation","Chemo toxicities: Anthracycline = Anguish of the heart; Vinca = Vinca-pathy (neuropathy). Tumor lysis: High K, Phos, uric acid; LOW Ca. Neutropenic fever = antibiotics NOW.",[
+"Cancer basics|Uncontrolled growth, invasion, metastasis. Risks: tobacco, UV, family history, infections, exposures. Unexplained weight loss, bleeding, mass, bowel change need evaluation.",
+"Lung cancer|Cough, hemoptysis, dyspnea; monitor airway/oxygenation. Low-dose CT screening for eligible high-risk adults. Post-op chest tube and pulmonary hygiene.",
+"Breast cancer|Mass, skin dimpling, nipple changes; mammography per guideline. After mastectomy: JP drain, pain, prescribed arm exercises, lymphedema teaching.",
+"Colorectal cancer|Blood in stool, bowel change, anemia; average-risk screening generally starts at 45 (verify). Stoma moist pink/red; dusky or black is urgent. Protect peristomal skin.",
+"BPH / prostate cancer|BPH: hesitancy, weak stream, retention. Cancer may be silent or cause bone pain. PSA individualized. After TURP monitor bleeding, clots, CBI patency.",
+"ALL|Immature lymphoblasts crowd out marrow: infection, anemia, bleeding. CBC, marrow testing; chemo, possible transplant; monitor tumor lysis and infection.",
+"Chemotherapy|Alkylating agents, antimetabolites, anthracyclines (cardiotoxic), vincas (neuropathy), taxanes. Marrow suppression, mucositis, nausea, alopecia. Vesicant extravasation: stop infusion, leave access, notify.",
+"Radiation|External beam does NOT make patient radioactive. Sealed internal source: time, distance, shielding. Unsealed: body-fluid precautions. Protect skin; no friction or unapproved products.",
+"Neutropenia / thrombocytopenia|Neutropenic fever is urgent: cultures and prompt antibiotics. Hand hygiene, avoid sick contacts. Low platelets: bleeding precautions, avoid IM/rectal procedures.",
+"Oncologic emergencies|Tumor lysis: high K/phos/uric acid, low Ca; ECG, renal. Cord compression: new back pain, weakness, bladder change. SVC syndrome: facial swelling, dyspnea. Sepsis/DIC: escalate.",
+"Chest tube / JP / CBI|Chest drainage below chest, no routine clamping; continuous water-seal bubbling = possible leak. JP compressed for suction. CBI true urine = total drainage minus irrigant; low output = check obstruction."]],
+["Sensory Perception","Acute angle-closure = painful red eye with halos (EMERGENCY). Retinal detachment = flashes, floaters, curtain. Meniere = vertigo, tinnitus, hearing loss, fullness.",[
+"Cataract|Painless cloudy lens, glare, gradual blur. After surgery avoid rubbing and heavy lifting/straining; report severe pain or sudden vision loss.",
+"Open-angle glaucoma|Gradual peripheral vision loss; optic nerve damage, often high IOP. Adhere to drops, lifelong follow-up.",
+"Acute angle closure|Sudden severe eye pain, halos, red eye, nausea: emergency. Avoid precipitating medications; urgent ophthalmology.",
+"Retinal detachment|Painless flashes, floaters, curtain over vision: urgent. After repair keep prescribed position; no air travel with intraocular gas until cleared.",
+"Eye drops|Hand hygiene, lower conjunctival sac, never touch tip; gentle punctal occlusion; separate drops by about 5 minutes.",
+"Hearing loss|Conductive = transmission problem; sensorineural = inner ear/nerve. Face patient, reduce noise, speak clearly, verify understanding; protect from loud noise.",
+"Otitis media|Ear pain, fever, bulging TM; analgesia and antibiotics if indicated. Insert nothing in ear. After ear surgery follow dry-ear and pressure precautions.",
+"Meniere disease|Episodic vertigo, tinnitus, fluctuating hearing loss, fullness. Fall precautions, quiet room in attack, low sodium if prescribed; no driving during vertigo.",
+"Ear irrigation|Avoid if perforation suspected or tubes present. Body-temperature solution; adult pinna up/back, young child down/back; stop for pain or dizziness.",
+"Hearing aids|Check battery, fit, clean, store dry; remove before water unless designed for it.",
+"Visual impairment safety|Orient to room, keep pathways clear, announce your presence, provide accessible call light."],
+[["","Open-angle","Acute angle closure"],["Onset","Gradual","Sudden"],["Signs","Peripheral vision loss","Severe pain, halos, red eye, nausea"],["Urgency","Lifelong drops/follow-up","Emergency"]]],
+["Genetics & Clotting","Hemophilia A = factor 8 (A=8, B=9); X-linked; aPTT prolonged. Transfusion reaction: STOP, new tubing + NS, assess, notify. Sickle: Hypoxia, Dehydration, Infection trigger crisis.",[
+"Sickle cell disease|Autosomal recessive HbS; sickling with hypoxia, dehydration, infection causes vaso-occlusion and hemolysis. Crisis: rapid analgesia, hydration, O2 if hypoxemic, treat trigger.",
+"Acute chest syndrome|New infiltrate with fever, chest pain or respiratory symptoms; urgent oxygenation check, antibiotics, transfusion as indicated.",
+"Other sickle complications|Stroke signs, splenic sequestration, infection, priapism are urgent. Hydroxyurea raises fetal Hb; monitor CBC; reproductive counseling.",
+"Hemophilia|A = factor VIII, B = IX; X-linked recessive. Hemarthrosis, prolonged bleeding; prolonged aPTT, often normal PT/platelets. Replace factor; protect joints; avoid aspirin/NSAIDs.",
+"Excess clotting / VTE|Immobility, cancer, surgery, pregnancy raise risk. Unilateral swelling = DVT; sudden dyspnea/chest pain = PE. Do NOT massage a suspected clot.",
+"Transfusion|Verify order, consent, patient/product IDs, compatibility; baseline VS, approved tubing, normal saline. RN assesses/monitors; UAP may take routine VS only, not assess reactions.",
+"Transfusion reaction|Stop transfusion immediately; keep IV with NEW tubing and normal saline; ABCs; notify provider/blood bank; follow specimen and product return policy. Fever, chills, dyspnea, back pain, hypotension.",
+"DIC|Widespread clotting consumes platelets/factors, causing bleeding. Low platelets/fibrinogen, high D-dimer, prolonged PT/aPTT; treat cause, support perfusion, replace products."]],
+["Sexuality, STIs & Contraception","ACHES: Abdominal pain, Chest pain, Headache, Eye/vision problems, Severe leg pain. Estrogen + migraine with aura / VTE risk = avoid. Chlamydia: doxy; Gonorrhea: ceftriaxone.",[
+"Sexual history|Private, nonjudgmental, inclusive: partners, practices, protection, past STIs, pregnancy intentions. Respect autonomy, culture, confidentiality.",
+"Chlamydia / gonorrhea|Often silent; discharge, dysuria, PID risk. NAAT; doxycycline for chlamydia (nonpregnant), ceftriaxone for gonorrhea; pregnancy regimens differ. Treat partners, retest.",
+"Syphilis|Painless chancre, later rash incl. palms/soles; serology. Penicillin G by stage; penicillin required in pregnancy.",
+"HSV / HPV|HSV: painful vesicles; antivirals suppress, not cure. HPV: warts/cancer; vaccine and cervical screening. Condoms reduce but do not eliminate risk.",
+"Trichomoniasis|Frothy discharge, irritation; metronidazole + partner management. BV is not classified as an STI.",
+"STI prevention levels|Primary: condoms, vaccines, education. Secondary: screening. Tertiary: treatment and complication prevention. Abstain until patient and partners are treated.",
+"Combined hormonal contraception|Estrogen + progestin. Avoid with major VTE risk, migraine with aura, uncontrolled HTN, smoking 35+, certain postpartum periods. Teach ACHES.",
+"Progestin-only / DMPA|For when estrogen is unsuitable; irregular bleeding. DMPA about every 3 months; weight change, bone density loss, delayed fertility return.",
+"IUD / implant|Highly effective, reversible. Copper IUD nonhormonal; LNG IUD often reduces bleeding. Neither protects against STIs.",
+"Emergency contraception|Copper IUD or oral ulipristal/levonorgestrel, up to 5 days; sooner is better for pills. Not an abortion pill. Follow restart instructions.",
+"Contraceptive interactions|Enzyme inducers (phenytoin, St. John's wort) can reduce hormonal contraception; most routine antibiotics do not. Course contraception chart not supplied."]],
+["High-Risk Pregnancy","Previa = Painless, bright red, no digital exam. Abruption = Agony, rigid uterus. HELLP: Hemolysis, Elevated Liver enzymes, Low Platelets. Mg toxicity: reflexes gone, RR down, urine down - give calcium gluconate.",[
+"Pregnancy basics|Presumptive: nausea, amenorrhea, perceived movement. Probable: positive hCG, cervical changes. Positive: fetal heart activity/ultrasound. GTPAL; Naegele: LMP +7 days -3 months +1 year.",
+"Hyperemesis|Persistent vomiting, dehydration, weight loss, electrolyte imbalance; IV fluids, antiemetics, nutrition; thiamine before dextrose if prolonged vomiting.",
+"Gestational HTN / preeclampsia|New HTN after 20 weeks; preeclampsia adds proteinuria or organ dysfunction. Severe: BP ≥160/110, headache, vision change, RUQ pain, pulmonary edema = urgent treatment.",
+"Eclampsia / HELLP|Eclampsia = seizures: protect airway, side position, call help, magnesium sulfate. HELLP: hemolysis, elevated liver enzymes, low platelets; watch bleeding, prepare for delivery.",
+"Diabetes in pregnancy|Pregestational predates pregnancy; GDM develops during it. Glucose monitoring, nutrition, insulin; macrosomia, neonatal hypoglycemia; postpartum follow-up.",
+"Miscarriage / ectopic|Bleeding/cramps may be loss; ectopic: unilateral pain, bleeding, shoulder pain, shock if ruptured. Assess stability, urgent evaluation; Rh prophylaxis if indicated.",
+"Cervical insufficiency / molar pregnancy|Painless second-trimester dilation; cerclage in selected cases. Mole: abnormal trophoblast, high hCG, bleeding; evacuation and serial hCG.",
+"Previa / abruption|Previa: painless bright bleeding; no digital exam until excluded. Abruption: painful bleeding, tender rigid uterus, fetal distress; may be concealed. Both urgent.",
+"Kick counts / ultrasound|Teach individualized movement-count protocol; reduced movement = call promptly. Ultrasound: anatomy, growth, placenta, fluid.",
+"NST / CST|NST: FHR accelerations without contractions; lateral/semi-Fowler; extend if fetal sleep. CST: FHR response to contractions; stop/escalate if abnormal.",
+"BPP|NST plus ultrasound breathing, movement, tone, fluid; each usually 0 or 2; interpret by total, fluid, gestation.",
+"Amniocentesis / CVS|Amnio: fluid, usually after 15 weeks. CVS: placental tissue, 10-13 weeks. Monitor bleeding, leakage, fever, contractions; Rh immune globulin if indicated.",
+"Magnesium safety|Monitor RR, reflexes, urine output, mental status; stop and escalate for toxicity; antidote calcium gluconate. Prevents seizures; not a primary BP treatment."],
+[["","Placenta previa","Abruption"],["Pain","Painless","Painful"],["Blood","Bright red","May be concealed"],["Uterus","Soft","Tender, rigid"],["Key action","No digital exam","Fetal distress, urgent"]]],
+["Labor & Birth","Five Ps: Passenger, Passageway, Powers, Position, Psyche. VEAL CHOP: Variable=Cord, Early=Head, Late=Placenta. Late decels: reposition, stop oxytocin, escalate. Shoulder dystocia: McRoberts + suprapubic, NO fundal pressure.",[
+"Five Ps|Passenger (fetus), passageway (pelvis), powers (contractions/pushing), position (maternal), psyche (coping). Reposition, support, assess progress.",
+"True labor / stages|True labor = progressive cervical change. Stage 1 onset to 10 cm (active ~6 cm); stage 2 full dilation to birth; stage 3 birth to placenta; stage 4 recovery.",
+"Mechanism of labor|Engagement, descent, flexion, internal rotation, extension, restitution/external rotation, expulsion. Assess station and presentation.",
+"Labor pain|Visceral: contractions/cervical dilation; somatic: perineal stretch. Breathing, movement, massage, water if safe; opioids near birth may depress newborn respiration; epidural: watch hypotension/FHR.",
+"FHR basics|Baseline 110-160; moderate variability (6-25 bpm) reassuring. Early = head compression; variable = cord compression; late = uteroplacental insufficiency. Trends matter.",
+"Abnormal FHR|Reposition laterally, stop oxytocin, assess BP/contractions, fluids, escalate; O2 for maternal hypoxemia, not routine. Persistent bradycardia or absent variability with recurrent decels = urgent.",
+"Induction / augmentation|Induction starts labor; augmentation strengthens it. Dinoprostone ripens cervix; oxytocin by pump with monitoring. Tachysystole >5 contractions/10 min over 30 min: reduce/stop oxytocin.",
+"Preterm labor / PROM|Preterm labor <37 weeks with cervical change. PROM = rupture before labor; PPROM <37 weeks. Assess FHR, fluid, infection; avoid digital exams. Steroids, antibiotics, tocolysis or delivery by status.",
+"Chorioamnionitis|Maternal fever, uterine tenderness, fetal tachycardia, purulent fluid; notify, antibiotics, delivery planning.",
+"Postterm / dystocia|Postterm ≥42 weeks; monitor fetus and fluid. Dysfunctional labor: assess powers, passenger, passage; no unsafe augmentation if obstruction suspected.",
+"Labor procedures|ECV with fetal monitoring and emergency readiness; forceps/vacuum need criteria and skilled provider. C-section: perioperative care. TOLAC/VBAC: assess eligibility, watch for rupture.",
+"Labor emergencies|Cord prolapse: call help, lift presenting part off cord, knee-chest/Trendelenburg, urgent birth. Shoulder dystocia: McRoberts + suprapubic; no fundal pressure. Uterine rupture: sudden FHR change, pain/bleeding, surgery. EMTALA: screen/stabilize regardless of payment."],
+[["Decel","Cause","Think"],["Early","Head compression","Benign, mirrors contraction"],["Variable","Cord compression","Reposition; cord prolapse check"],["Late","Uteroplacental insufficiency","Reposition, stop oxytocin, escalate"]]],
+["Postpartum","BUBBLE-HE (supplemental; check faculty 12-point rubric). 4 Ts of PPH: Tone, Trauma, Tissue, Thrombin. Boggy fundus = massage + empty bladder. REEDA for wounds.",[
+"Normal recovery|Fundus firm/midline, drops ~1 cm/day; lochia rubra, serosa, then alba. Diuresis, afterpains, breast changes, transient leukocytosis. Subinvolution = delayed return.",
+"12-point assessment|Suggested: breasts, uterus, bladder, bowel, lochia, perineum, incision, extremities, vitals, pain, emotional status, bonding. Exact course checklist not provided.",
+"Perineum / incision|REEDA: redness, edema, ecchymosis, discharge, approximation. Ice early, sitz bath later; wipe front to back. C-section: incision, mobility, bowel function, VTE risk.",
+"Postpartum hemorrhage|Cumulative loss ≥1000 mL or bleeding with hypovolemia within 24 h; >500 mL vaginal warrants evaluation. 4 Ts. Boggy fundus: massage, assess bladder, call help, oxytocin as ordered.",
+"Hemorrhagic shock|Tachycardia, pallor, altered mentation, oliguria; hypotension is late. Activate hemorrhage response, quantify loss, IV access, fluids/blood, monitor perfusion.",
+"Postpartum VTE|Unilateral leg pain/swelling; PE: sudden dyspnea, chest pain, hypoxia. Urgent escalation; no massage. Early mobility, prescribed prophylaxis.",
+"Postpartum infection|Endometritis: fever, uterine tenderness, foul lochia. Mastitis: focal breast pain/redness, fever; treat, keep milk removal. Wound infection: redness, drainage.",
+"Mood / bonding|Baby blues resolve within 2 weeks; persistent depression needs evaluation. Psychosis, hallucinations, or thoughts of harming self/infant = emergency; never leave alone with infant.",
+"Postpartum discharge|Stable VS, bleeding, voiding, pain, mobility, feeding plan, follow-up. Stay 1-2 days vaginal, 2-4 cesarean. Teach: heavy bleeding, severe headache, chest pain, dyspnea, fever, suicidal thoughts.",
+"Postpartum delegation|UAP: hygiene, ambulation, routine VS for stable patients. RN keeps assessment, fundal/lochia evaluation, teaching, judgment."]],
+["Newborn & Development","APGAR: Appearance, Pulse, Grimace, Activity, Respirations (1 & 5 min). Do NOT wait for APGAR to resuscitate. Cold + grunting: breathing and warmth BEFORE feeding.",[
+"Transition / APGAR|Dry, warm, stimulate, assess breathing/HR. APGAR at 1 and 5 min; repeat q5 min to 20 if 5-min score &lt;7. Apnea/gasping or HR &lt;100 after initial steps = ventilate per NRP; don't wait for score.",
+"Normal vs abnormal newborn|Term HR 100-160, RR 30-60, axillary temp 36.5-37.5 C. Acrocyanosis can be normal early; central cyanosis, grunting, retractions, persistent tachypnea = urgent.",
+"Cold stress / hypoglycemia|Cold raises O2 and glucose use. Warm, assess breathing, check glucose if symptomatic/at risk, feed if stable or give glucose per protocol. Respiratory distress outranks feeding.",
+"First 2 hours|Skin-to-skin if stable, ID/security, measurements, feeding, vitamin K, eye prophylaxis, Hep B vaccine per guidance/consent. Monitor temperature, breathing, glucose risk.",
+"Cord / circumcision|Keep cord clean/dry; report spreading redness, pus, fever. Circumcision: monitor bleeding and voiding; petroleum if appropriate; report persistent bleeding.",
+"Feeding / newborn safety|Breastfeed 8-12 times/day; assess latch and output; formula exactly as directed. Supine sleep, firm flat surface, no loose bedding. Cleft palate: upright, specialty feeder, frequent burping.",
+"High-risk newborn|Preterm &lt;37 weeks; postterm ≥42. IDM: hypoglycemia; hemolysis: jaundice; sepsis: temperature instability, poor feeding, lethargy, distress. Monitor withdrawal, congenital infection; support grieving families.",
+"Growth / autism|Growth = quantitative; development = functional progression. Watch milestones and regression; autism: social communication differences, repetitive behaviors. Predictable routines, sensory accommodations.",
+"Congenital heart disease|Cyanosis, feeding fatigue, tachypnea, poor growth; pulse ox screen and echo. Left-to-right shunts: pulmonary overcirculation; cyanotic defects reduce systemic O2. Ductus/foramen ovale normally close after birth.",
+"Hydrocephalus|Excess CSF: rising head circumference, bulging fontanel, sunset eyes, vomiting. Shunt infection/malfunction: fever, lethargy, vomiting, neuro change = urgent.",
+"Cerebral palsy|Nonprogressive brain injury causing motor/postural impairment; support mobility, feeding/swallowing, communication, therapy; monitor aspiration and seizures.",
+"Neural tube defects|Spina bifida, anencephaly. Folic acid before conception lowers risk. Open myelomeningocele: prone, sterile moist nonadherent dressing, protect sac, infection precautions, assess bladder/bowel/hydrocephalus."]]
+];
+const MEDS=[
+"Ondansetron|5-HT3 antiemetic for nausea/CINV. AE: QT prolongation, constipation. Monitor ECG risk.",
+"Magnesium hydroxide|Antacid/osmotic laxative. AE: diarrhea; hypermagnesemia in renal impairment (avoid/caution).",
+"Amoxicillin / ampicillin|Penicillins for bacterial infection. AE: allergy, diarrhea. Check allergy; renal dosing.",
+"Metronidazole|Anaerobic/protozoal infection (trichomoniasis). AE: GI upset, neuropathy. Follow alcohol-avoidance labeling.",
+"Propranolol / metoprolol|Beta blockers: lower HR/BP; propranolol prevents variceal bleeding. AE: bradycardia, hypotension; propranolol bronchospasm risk (caution asthma).",
+"Pantoprazole / lansoprazole|PPIs for GERD/PUD. Give before meals. AE: long-term infection, low magnesium.",
+"Clarithromycin / azithromycin|Macrolides. AE: QT risk, GI effects. Clarithromycin has major drug interactions.",
+"Lactulose|Osmotic laxative for hepatic encephalopathy. Titrate to stool goal; monitor hydration, electrolytes.",
+"Midazolam / alprazolam / lorazepam|Benzodiazepines: sedation, anxiety, seizures. AE: respiratory depression, falls. Monitor airway, esp. with opioids. ANTIDOTE: flumazenil.",
+"Flumazenil|Benzodiazepine antagonist (antidote). AE: resedation, seizures, esp. chronic use or mixed overdose.",
+"Amlodipine|Calcium channel blocker for hypertension. AE: edema, hypotension.",
+"Ibuprofen / aspirin|NSAIDs: pain/inflammation; aspirin antiplatelet. AE: GI bleeding, renal injury. AVOID in active PUD and hemophilia. Low-dose aspirin may be given for preeclampsia prevention.",
+"Epinephrine|Adrenergic agonist for anaphylaxis/resuscitation. AE: tachycardia, arrhythmia. Route/concentration is indication-specific.",
+"Corticosteroids / betamethasone|Anti-inflammatory; betamethasone gives antenatal fetal lung maturity. AE: hyperglycemia, infection risk. Monitor glucose.",
+"Lisinopril|ACE inhibitor for HTN/HF. AE: cough, hyperkalemia, angioedema. CONTRAINDICATED in pregnancy.",
+"Blood products|PRBC = oxygen-carrying; platelets = thrombocytopenia; plasma = factor deficits; cryoprecipitate = fibrinogen. Verify; monitor for reactions (stop transfusion if reaction).",
+"Crystalloids / IV normal saline|Volume replacement. Monitor perfusion, electrolytes, overload. Isotonic saline is compatible with blood per policy.",
+"Sevoflurane|Inhaled anesthetic. AE: hypotension, respiratory depression, malignant hyperthermia risk.",
+"Acetaminophen|Analgesic/antipyretic. AE: hepatotoxic overdose. Count all sources; individualized limit in liver disease.",
+"Meperidine (Demerol)|Opioid. AE: respiratory depression; normeperidine neurotoxicity/seizures. Generally avoid if safer options exist.",
+"Fentanyl / hydromorphone / morphine|Opioids for analgesia. AE: sedation, respiratory depression, constipation, hypotension. Monitor respirations. ANTIDOTE: naloxone.",
+"Propofol|IV anesthetic/sedative. AE: apnea, hypotension. Needs airway-ready trained personnel; no analgesia.",
+"Sugammadex|Reverses rocuronium/vecuronium. Monitor ventilation, bradycardia, anaphylaxis. Backup nonhormonal contraception for 7 days.",
+"Pancreatic enzymes|Replace digestive enzymes; take with meals/snacks; do not crush enteric-coated beads.",
+"Gentamicin|Aminoglycoside for serious infection. AE: nephrotoxicity, ototoxicity. Monitor renal function and levels.",
+"Spironolactone|Potassium-sparing diuretic for ascites/HF. AE: hyperkalemia. Monitor renal function and K.",
+"TPN / lipids|IV nutrition. AE: infection, hyperglycemia, electrolyte shifts. Monitor glucose, line, triglycerides.",
+"Cimetidine|H2 blocker for acid suppression. AE: interactions, confusion in susceptible older adults.",
+"Aluminum hydroxide / calcium carbonate (Tums)|Antacids. AE: constipation, absorption interactions; aluminum accumulates in renal disease; calcium excess possible.",
+"Furosemide|Loop diuretic for fluid overload. AE: hypokalemia, dehydration, ototoxicity. Monitor weight, BP, renal function.",
+"Sodium polystyrene sulfonate|Potassium binder. AE: GI injury, electrolyte shifts. Not the sole emergency treatment for severe hyperkalemia.",
+"Recombinant factor VIII|Hemophilia A replacement. Monitor bleeding, hypersensitivity, inhibitor response.",
+"Diphenhydramine|H1 blocker for allergy. AE: sedation, anticholinergic effects. Caution: angle-closure glaucoma, urinary retention.",
+"Metformin|Biguanide for diabetes. AE: GI effects, rare lactic acidosis. Check renal function; contrast holds per policy.",
+"Hydroxyurea|Sickle cell disease; raises HbF. AE: myelosuppression. Monitor CBC; reproductive precautions.",
+"Ceftriaxone|Cephalosporin for gonorrhea and others. AE: allergy, diarrhea. Neonatal calcium/bilirubin precautions.",
+"Dextrose / glucagon|Hypoglycemia rescue: IV dextrose if access; glucagon when appropriate. Recheck glucose, protect airway; glucagon may cause vomiting.",
+"Prenatal vitamins / folic acid / vitamin D|Supplements; folate reduces neural tube defects. Avoid excess doses; iron causes constipation.",
+"Phenytoin|Antiseizure. AE: nystagmus, ataxia, gingival hyperplasia. Monitor levels; reduces hormonal contraception effectiveness.",
+"Rh(D) immune globulin (RhoGAM)|Prevents Rh sensitization in eligible unsensitized Rh-negative patients; ~28 weeks and within 72 h after Rh-positive birth or sensitizing event. Verify eligibility.",
+"Depo-Provera / combined oral contraceptives|Hormonal contraception. DMPA: irregular bleeding, bone density loss. Estrogen methods: VTE risk. No STI protection.",
+"Emergency contraceptives|Levonorgestrel or ulipristal. AE: nausea, cycle changes. Follow method-specific timing and restart guidance.",
+"Hydralazine / labetalol / methyldopa|Antihypertensives in pregnancy. Hydralazine: reflex tachycardia. Labetalol: bradycardia, bronchospasm. Methyldopa: sedation; not for acute rescue.",
+"Calcium gluconate|ANTIDOTE for magnesium toxicity. Monitor ECG and IV site; give per protocol.",
+"HPV / HBV vaccines|Prevent infection-related disease. HPV deferred in pregnancy; HBV given when indicated. Monitor allergic reactions.",
+"Insulin (all types)|Rapid lispro/aspart; short regular; intermediate NPH; long glargine/detemir; ultra-long degludec. AE: hypoglycemia, potassium shifts. Coordinate meals; do not mix glargine/degludec.",
+"Heparin|Anticoagulant. AE: bleeding, HIT. Monitor platelets, aPTT/anti-Xa. ANTIDOTE: protamine. Preferred over warfarin in pregnancy.",
+"Magnesium sulfate|Seizure prophylaxis/treatment in preeclampsia; selected fetal neuroprotection. Monitor reflexes, RR, urine output. ANTIDOTE: calcium gluconate.",
+"St. John's wort|Herbal enzyme inducer; reduces some contraceptives; serotonergic interactions.",
+"Doxycycline|Tetracycline for chlamydia in nonpregnant adults. AE: photosensitivity, esophagitis. Pregnancy differs; separate from polyvalent cations.",
+"Promethazine|Antiemetic/H1 blocker. AE: sedation, respiratory depression, severe tissue injury with improper IV administration.",
+"Penicillin G|Syphilis; GBS prophylaxis. AE: allergy/anaphylaxis; Jarisch-Herxheimer reaction in syphilis.",
+"Vancomycin|Gram-positive infection. AE: nephrotoxicity, infusion reaction. Monitor renal function and levels.",
+"Warfarin|Vitamin K antagonist. AE: bleeding; interactions. Monitor INR. ANTIDOTE: vitamin K, PCC. Generally avoid in pregnancy.",
+"Cervidil (dinoprostone)|Prostaglandin cervical ripening. AE: tachysystole, FHR changes. Remove insert per protocol for complications or before oxytocin.",
+"Oxytocin|Induction/augmentation; treats PPH. AE: tachysystole, fetal compromise, water intoxication. Pump and monitoring; stop for concerning patterns.",
+"Vitamin K|Newborn bleeding prophylaxis (IM per policy); also warfarin reversal.",
+"Witch hazel|Topical perineal/hemorrhoid comfort. Local irritation possible.",
+"Methergine (methylergonovine)|Uterotonic for atony/PPH. AE: hypertension, vasospasm. AVOID in hypertension/preeclampsia.",
+"Systemic analgesia / sedatives (labor)|Opioids/sedatives for labor comfort as ordered. AE: maternal sedation, neonatal respiratory depression. Monitor maternal/fetal status."
+];
+const P=[
+["PUD patient develops sudden severe pain and a rigid abdomen. Priority?","Urgent assessment/escalation for possible perforation; keep NPO","Rigid abdomen suggests perforation."],
+["Which diet teaching fits diverticulosis after recovery?","Gradually increase fiber and fluids","Acute diverticulitis diet differs."],
+["After abdominal surgery, bowel protrudes through the incision. First protective action?","Call for help and cover with sterile saline-moistened dressing","Never reinsert organs."],
+["Cirrhosis patient becomes confused with asterixis. Likely complication?","Hepatic encephalopathy","Assess airway and triggers; lactulose as ordered."],
+["RUQ pain, fever and jaundice suggest what?","Ascending cholangitis","Urgent escalation."],
+["Which lab best supports acute pancreatitis?","Lipase","Interpret with symptoms."],
+["Chemo patient with neutropenia develops fever. Wait for morning rounds?","No: urgent evaluation and prompt antibiotics","Neutropenic fever is an emergency."],
+["CBI infused 2,000 mL; drainage is 2,450 mL. True urine?","450 mL","Subtract irrigant from drainage."],
+["Chest tube water seal bubbles continuously. Next step?","Assess patient and system for an air leak; do not routinely clamp","Continuous bubbling suggests a leak."],
+["Sudden flashes and a curtain over vision?","Retinal detachment: urgent ophthalmology","Painless flashes, floaters, curtain."],
+["Severe eye pain, halos and nausea?","Acute angle-closure glaucoma (emergency)","Needs urgent treatment."],
+["Sickle cell patient has new chest pain and hypoxia. Concern?","Acute chest syndrome","Urgent respiratory assessment and escalation."],
+["Hemophilia A: which factor and typical coagulation finding?","Factor VIII deficiency; prolonged aPTT, often normal PT","Hemophilia B = factor IX."],
+["Transfusion causes chills and back pain. First action?","Stop the transfusion immediately; keep IV open with new saline tubing","Then assess ABCs and notify provider/blood bank."],
+["Which contraceptive is problematic with migraine with aura?","Estrogen-containing combined hormonal contraception","Stroke/VTE risk."],
+["Which herbal product may reduce pill efficacy?","St. John's wort","Enzyme inducer."],
+["Pregnant patient with painless bright red bleeding. Avoid what?","Digital vaginal examination","Until placenta previa is excluded."],
+["Severe preeclampsia on magnesium has absent reflexes and slow respirations. Action?","Stop magnesium, escalate, support breathing; calcium gluconate per order","Magnesium toxicity."],
+["What does HELLP stand for?","Hemolysis, Elevated liver enzymes, Low platelets","Severe preeclampsia variant."],
+["Recurrent late decelerations during oxytocin. Priority actions?","Stop oxytocin, lateral position, assess BP/contractions, fluids, escalate","Late decels = uteroplacental insufficiency."],
+["Cord prolapse after membrane rupture. What relieves compression?","Lift the presenting part off the cord while calling for urgent delivery","Knee-chest/Trendelenburg as appropriate."],
+["Shoulder dystocia: which maneuver is contraindicated?","Fundal pressure","McRoberts and suprapubic pressure are initial maneuvers."],
+["Postpartum heavy bleeding with boggy uterus. Likely cause?","Uterine atony","Massage, call help, assess bladder, uterotonic."],
+["Which uterotonic is avoided with hypertension?","Methylergonovine (Methergine)","Causes hypertension/vasospasm."],
+["Postpartum patient hears voices telling her to harm her infant. Priority?","Immediate safety and emergency psychiatric evaluation; do not leave alone with infant","Possible postpartum psychosis."],
+["Newborn is cold, grunting, low glucose. Feed immediately?","No: support breathing and warmth first, treat glucose per protocol","Respiratory distress outranks feeding."],
+["When is APGAR recorded?","At 1 and 5 minutes; repeat q5 min to 20 if 5-min score &lt;7","Resuscitation is based on breathing/HR, not delayed for score."],
+["Open myelomeningocele: positioning and dressing?","Prone; sterile moist nonadherent dressing; protect the sac","Prevent infection and sac injury."],
+["Infant with VP shunt develops vomiting and lethargy. Concern?","Shunt malfunction or infection","Urgent evaluation."],
+["Order 10 mg/kg for a 22 kg child; available 100 mg/5 mL. Volume?","11 mL (220 mg)","220 / 100 x 5 = 11 mL; verify safe dose."]
+];
+const PRI=[["Transfusion reaction",["Stop the transfusion","Hang new tubing with normal saline","Assess ABCs and vital signs","Notify provider and blood bank"]],
+["Evisceration",["Stay with patient and call for help","Place low Fowler with knees bent","Cover with sterile saline-moistened dressing","Keep NPO and prepare for surgery"]],
+["Boggy postpartum fundus",["Massage the fundus","Assess for bladder distention","Call for help","Give uterotonic as ordered"]],
+["Late decelerations on oxytocin",["Stop oxytocin","Reposition to lateral","Assess BP and contractions","Notify provider / escalate"]],
+["Magnesium toxicity",["Stop the magnesium infusion","Call for help and support breathing","Assess reflexes, RR, urine output","Give calcium gluconate per order"]]];
+const FL=["APGAR: the guide's final line says APGAR &lt;7 = immediate resuscitation, but the guide itself notes that resuscitation starts from breathing and heart rate and does not wait for APGAR. Ask faculty which wording to use on the exam.",
+"PPH: ≥1000 mL cumulative loss (or bleeding with hypovolemia) vs &gt;500 mL vaginal 'warrants evaluation.' Confirm your course threshold.",
+"Practice answers and clinical explanations are supplemental, not faculty-provided or textbook-verified.",
+"Not supplied in the guide: contraception chart, faculty 12-point postpartum checklist, exact med protocols, screening schedules (e.g., colorectal at 45). Check course materials.",
+"Old exam-map question counts do not predict final weighting. Study the final review objectives first.",
+"Tachysystole, vaccine timing (HBV/HPV), Rh immune globulin timing, and transfusion/magnesium protocols are protocol-specific: verify locally.",
+"Labs, extra mnemonics (VEAL CHOP, BUBBLE-HE) and the antidote table in Cheat Sheets are general references added by the builder, not from the guide."];
+/* ===== DERIVED DATA ===== */
+const IT=[];M.forEach((m,i)=>m[2].forEach(r=>{const[t,...x]=r.split('|');IT.push({m:i,t,x:x.join('|')})}));
+const MD=MEDS.map(r=>{const[t,...x]=r.split('|');return{t,x:x.join('|')}});
+const mk=(q,a,r,pool)=>{const d=sh([...new Set(pool)].filter(x=>x!==a)).slice(0,3);return{q,a,r,o:sh([a,...d])}};
+const PA=P.map(p=>p[1]);
+const qP=()=>P.map(p=>mk(p[0],p[1],p[2],PA));
+const qM=i=>IT.filter(z=>i<0||z.m===i).map(z=>mk('Which topic is described? '+z.x,z.t,'<b>'+z.t+'</b>: '+z.x,IT.filter(y=>y.m===z.m).map(y=>y.t)));
+const qD=()=>MD.map(z=>mk('Which medication? '+z.x,z.t,'<b>'+z.t+'</b>: '+z.x,MD.map(y=>y.t)));
+let cur='Modules';
+/* ===== QUIZ ENGINE ===== */
+function run(qs,el,title){let i=0,sc=0,w=[];
+const show=()=>{if(i>=qs.length){const p=Math.round(sc/qs.length*100);S.scores.push({t:title,p,n:qs.length,d:new Date().toLocaleDateString()});save();prog();
+el.innerHTML=`<div class=card><h2>${title}: ${sc}/${qs.length} (${p}%)</h2><p>${p>=80?'Strong result. Keep reviewing missed items.':'Review the missed items below, then try again.'}</p>${w.length?'<h3>Missed items</h3>'+w.map(x=>`<p><b>${x.q}</b><br>Answer: ${x.a}<br><span class=muted>${x.r}</span></p>`).join(''):''}<button class=btn onclick="go(cur)">Back</button></div>`;return}
+const q=qs[i];el.innerHTML=`<div class=card><div class=muted>${title} &bull; Question ${i+1} of ${qs.length} &bull; Score ${sc}</div><h3>${q.q}</h3>${q.o.map((o,k)=>`<button class=opt data-k=${k}>${o}</button>`).join('')}<div id=fb></div></div>`;
+let d=0;el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(d)return;d=1;const ok=q.o[+b.dataset.k]===q.a;
+el.querySelectorAll('.opt').forEach(x=>{if(q.o[+x.dataset.k]===q.a)x.classList.add('ok')});if(ok)sc++;else{b.classList.add('no');w.push(q)}
+$('#fb').innerHTML=`<p><b>${ok?'Correct.':'Not quite.'}</b> ${q.r}</p><button class=btn id=nx>${i+1<qs.length?'Next question':'See score'}</button>`;$('#nx').onclick=()=>{i++;show()}})};show()}
+/* ===== VIEWS ===== */
+const V={
+Modules(){const a=$('#app');a.innerHTML='<h2>Study Modules</h2><p class=muted>Pick a module. Open each topic, read the memory trick, then take the module quiz.</p><div class=grid>'+M.map((m,i)=>`<div class=mod style="background:${COL[i]}" onclick="mod(${i})" tabindex=0><b>Module ${i+1}</b>${S.done[i]?' ✅':''}<br>${m[0]}<br><span class=muted>${m[2].length} topics</span></div>`).join('')+'</div>'},
+Meds(){$('#app').innerHTML=`<h2>Medication Center</h2><p class=muted>${MD.length} entries covering every blueprint medication group. Each entry lists use, adverse effects, cautions/contraindications and antidotes where the guide gives them.</p><input class=in id=mf placeholder="Filter medications..." style="width:100%"><div id=ml></div>`;
+const f=()=>{const v=$('#mf').value.toLowerCase();$('#ml').innerHTML=MD.filter(z=>(z.t+z.x).toLowerCase().includes(v)).map(z=>`<details style="--c:${/ANTIDOTE|AVOID|CONTRA/.test(z.x)?'#ff9fb2':'#b9a8ff'}"><summary>${z.t}</summary><p>${z.x.replace(/(ANTIDOTE[^.]*\.?|AVOID[^.]*\.?|CONTRAINDICATED[^.]*\.?)/g,'<b style="color:#c0334f">$1</b>')}</p></details>`).join('')};$('#mf').oninput=f;f()},
+Cards(){const a=$('#app');a.innerHTML=`<h2>Flashcards</h2><select id=dk>${M.map((m,i)=>`<option value=${i}>Module ${i+1}: ${m[0]}</option>`).join('')}<option value=med>Medications</option></select> <button class="btn alt" id=shf>Shuffle</button><div id=fcw></div>`;
+let deck=[],k=0;const load=()=>{const v=$('#dk').value;deck=(v=='med'?MD.map((z,i)=>({...z,id:'med'+i})):IT.filter(z=>z.m==v).map((z,i)=>({...z,id:v+'_'+i})));k=0;draw()};
+const draw=()=>{const c=deck[k],kn=deck.filter(d=>S.known[d.id]).length;$('#fcw').innerHTML=`<p class=muted>Card ${k+1} of ${deck.length} &bull; Mastered ${kn}</p><div class=fc id=fc><div class=fi><div class="fs fr">${c.t}</div><div class="fs bk">${c.x}</div></div></div><button class="btn alt" id=pv>Back</button> <button class=btn id=ok>${S.known[c.id]?'Mastered ✓ (undo)':'I know this'}</button> <button class="btn alt" id=nx>Next</button>`;
+$('#fc').onclick=e=>e.currentTarget.classList.toggle('f');$('#pv').onclick=()=>{k=(k+deck.length-1)%deck.length;draw()};$('#nx').onclick=()=>{k=(k+1)%deck.length;draw()};$('#ok').onclick=()=>{S.known[c.id]=!S.known[c.id];save();prog();draw()}};
+$('#dk').onchange=load;$('#shf').onclick=()=>{deck=sh(deck);k=0;draw()};load()},
+Quiz(){$('#app').innerHTML=`<h2>Practice Quizzes</h2><p class=muted>NCLEX-style multiple choice with rationales and automatic scoring.</p><div class=card><select id=qs><option value=p>Clinical practice questions (30)</option><option value=d>Medication identification</option>${M.map((m,i)=>`<option value=${i}>Module ${i+1}: ${m[0]}</option>`).join('')}</select> <button class=btn id=go>Start 10-question quiz</button></div><div id=qa></div>`;
+$('#go').onclick=()=>{const v=$('#qs').value,l=v=='p'?qP():v=='d'?qD():qM(+v);run(sh(l).slice(0,10),$('#qa'),'Quiz')}},
+Exam(){$('#app').innerHTML=`<h2>Final Exam Simulator</h2><div class=card><p>80 cumulative questions drawn at random from all 10 modules (30 clinical practice items plus ${IT.length} concept items). No hints. Review missed items at the end.</p><button class=btn id=ex>Start 80-question exam</button></div><div id=qa></div>`;
+$('#ex').onclick=()=>run(sh([...qP(),...qM(-1)]).slice(0,80),$('#qa'),'Final Exam')},
+Games(){$('#app').innerHTML=`<h2>Learning Games</h2><button class=btn id=g1>Matching</button> <button class=btn id=g2>Medication ID</button> <button class=btn id=g3>Prioritization</button> <button class=btn id=g4>Clinical scenarios</button><div id=gm style="margin-top:12px"></div>`;
+const g=$('#gm');
+$('#g1').onclick=()=>{const m=Math.floor(Math.random()*10),r=sh(IT.filter(z=>z.m==m)).slice(0,6);let sel=null,n=0,mv=0;
+const d=()=>{g.innerHTML=`<div class=card><b>Match each topic to its description</b> (Module ${m+1}) &bull; Moves ${mv}</div><div class=mg><div>${sh(r).map(z=>`<button data-t=${r.indexOf(z)} class="L ${z.dn?'done':''}">${z.t}</button>`).join('')}</div><div>${sh(r).map(z=>`<button data-r=${r.indexOf(z)} class="R ${z.dn?'done':''}">${z.x.slice(0,110)}...</button>`).join('')}</div></div>${n==6?`<div class=card>All matched in ${mv} moves!</div>`:''}`;
+g.querySelectorAll('.L').forEach(b=>b.onclick=()=>{sel=+b.dataset.t;g.querySelectorAll('.L').forEach(x=>x.classList.remove('sel'));b.classList.add('sel')});
+g.querySelectorAll('.R').forEach(b=>b.onclick=()=>{if(sel===null)return;mv++;if(sel===+b.dataset.r&&!r[sel].dn){r[sel].dn=1;n++}sel=null;d()})};d()};
+$('#g2').onclick=()=>run(sh(qD()).slice(0,10),g,'Medication ID');
+$('#g4').onclick=()=>run(sh(qP()).slice(0,8),g,'Clinical scenarios');
+$('#g3').onclick=()=>{const s=PRI[Math.floor(Math.random()*PRI.length)];let nx=0,bad=0;
+const d=()=>{g.innerHTML=`<div class=card><b>Prioritize: ${s[0]}</b><p class=muted>Click the actions in the correct order. Mistakes: ${bad}</p></div>`+sh(s[1]).map(x=>`<button class=opt ${s[1].indexOf(x)<nx?'style="background:#d4f5dd"':''} data-i=${s[1].indexOf(x)}>${x}</button>`).join('')+(nx==4?`<div class=card>Done with ${bad} mistake(s). <button class=btn onclick="$('#g3').click()">Another scenario</button></div>`:'');
+g.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(+b.dataset.i==nx)nx++;else bad++;d()})};d()}},
+Cheats(){$('#app').innerHTML=`<h2>Cheat Sheets</h2>
+<div class=card><h3>Safety first (rapid recall)</h3><ul><li><b>GI bleed:</b> ABCs/perfusion, escalate, IV access, no NSAIDs</li><li><b>Evisceration:</b> sterile saline-moistened dressing, NPO, surgical help</li><li><b>Neutropenic fever:</b> urgent assessment and antibiotics</li><li><b>Transfusion reaction:</b> stop blood, new tubing + saline, assess, notify</li><li><b>Retinal detachment:</b> flashes, floaters, curtain</li><li><b>Previa vs abruption:</b> painless vs painful; no digital exam</li><li><b>Mg toxicity:</b> absent reflexes, depressed respirations, oliguria; calcium gluconate</li><li><b>Late decels:</b> reposition, stop oxytocin, escalate</li><li><b>Boggy fundus:</b> massage, bladder, call help, uterotonic</li><li><b>Newborn grunting:</b> breathing/oxygenation before feeding</li><li><b>Math:</b> volume = ordered/available x available volume; kg = lb/2.2; mL/hr = volume/hours; CBI urine = drainage - irrigant</li></ul></div>
+<div class=card><h3>Antidotes</h3><div class=tw><table><tr><th>Drug</th><th>Reversal</th></tr><tr><td>Benzodiazepines</td><td>Flumazenil</td></tr><tr><td>Opioids</td><td>Naloxone</td></tr><tr><td>Magnesium sulfate</td><td>Calcium gluconate</td></tr><tr><td>Heparin</td><td>Protamine</td></tr><tr><td>Warfarin</td><td>Vitamin K, PCC</td></tr><tr><td>Rocuronium/vecuronium</td><td>Sugammadex</td></tr></table></div></div>
+<div class=card><h3>Mnemonics</h3><ul><li><b>GTPAL:</b> Gravida, Term, Preterm, Abortions, Living</li><li><b>ACHES:</b> Abdominal, Chest, Headache, Eye, Severe leg pain</li><li><b>REEDA:</b> Redness, Edema, Ecchymosis, Discharge, Approximation</li><li><b>4 Ts:</b> Tone, Trauma, Tissue, Thrombin</li><li><b>5 Ps:</b> Passenger, Passageway, Powers, Position, Psyche</li><li><b>HELLP:</b> Hemolysis, Elevated Liver enzymes, Low Platelets</li><li><b>VEAL CHOP:</b> Variable=Cord, Early=Head, Late=Placenta</li><li><b>BUBBLE-HE:</b> Breasts, Uterus, Bladder, Bowels, Lochia, Episiotomy, Homan/legs, Emotions</li></ul></div>
+<div class=card><h3>Common lab values (general adult reference: verify with your lab)</h3><div class=tw><table><tr><th>Test</th><th>Typical range</th></tr><tr><td>Potassium</td><td>3.5-5.0 mEq/L</td></tr><tr><td>Sodium</td><td>135-145 mEq/L</td></tr><tr><td>Calcium</td><td>8.5-10.5 mg/dL</td></tr><tr><td>Magnesium</td><td>1.5-2.5 mg/dL</td></tr><tr><td>Glucose (fasting)</td><td>70-99 mg/dL</td></tr><tr><td>Platelets</td><td>150,000-450,000/mm3</td></tr><tr><td>WBC</td><td>5,000-10,000/mm3</td></tr><tr><td>INR (no warfarin)</td><td>about 0.8-1.1; warfarin goal often 2-3</td></tr><tr><td>aPTT</td><td>about 25-35 s (lab-specific)</td></tr></table></div></div>
+<div class=card><h3>⚠ Flagged for verification</h3>${FL.map(f=>`<div class=flag>${f}</div>`).join('')}</div>`},
+Progress(){const kn=Object.values(S.known).filter(Boolean).length,tot=IT.length+MD.length,best=Math.max(0,...S.scores.filter(s=>s.t=='Final Exam').map(s=>s.p));
+$('#app').innerHTML=`<h2>My Progress</h2><div class=card><p>Modules complete: <b>${Object.values(S.done).filter(Boolean).length}/10</b></p><p>Flashcards mastered: <b>${kn}/${tot}</b></p><p>Quizzes taken: <b>${S.scores.length}</b> &bull; Best final exam: <b>${S.scores.some(s=>s.t=='Final Exam')?best+'%':'none yet'}</b></p><p class=muted>Progress saves in this browser on this device only.</p></div><div class=card><h3>Recent scores</h3>${S.scores.slice(-15).reverse().map(s=>`<p>${s.d}: ${s.t} &mdash; <b>${s.p}%</b> (${s.n} q)</p>`).join('')||'<p class=muted>No quizzes yet. Take one from the Quiz tab.</p>'}</div><button class="btn alt" id=rs>Reset all progress</button>`;
+$('#rs').onclick=()=>{if(confirm('Reset all progress?')){S={done:{},known:{},scores:[]};save();prog();V.Progress()}}}
+};
+function mod(i){const m=M[i],a=$('#app'),c=COL[i];
+a.innerHTML=`<button class="btn alt" onclick="go('Modules')">All modules</button><div class=card style="background:${c};margin-top:10px"><h2>Module ${i+1}: ${m[0]}</h2><label><input type=checkbox id=dn ${S.done[i]?'checked':''}> Mark module complete</label></div><div class=mt><b>Memory trick:</b> ${m[1]}</div>${m[3]?`<div class="card tw"><h3>Comparison chart</h3><table>${m[3].map((r,j)=>'<tr>'+r.map(x=>j?`<td>${x}</td>`:`<th>${x}</th>`).join('')+'</tr>').join('')}</table></div>`:''}<button class="btn alt" id=ea>Expand all</button> <button class=btn id=mq>Quiz this module</button><div id=rw>${IT.filter(z=>z.m==i).map(z=>`<details style="--c:${c}"><summary>${z.t}</summary><p>${z.x}</p></details>`).join('')}</div><div id=qa></div>`;
+$('#dn').onchange=e=>{S.done[i]=e.target.checked;save();prog()};let o=0;$('#ea').onclick=()=>{o=!o;a.querySelectorAll('#rw details').forEach(d=>d.open=o)};
+$('#mq').onclick=()=>{$('#rw').style.display='none';run(sh(qM(i)).slice(0,10),$('#qa'),'Module '+(i+1)+' quiz')};scrollTo(0,0)}
+function prog(){const d=Object.values(S.done).filter(Boolean).length;$('#bar i').style.width=d*10+'%';$('#bt').textContent=d+' of 10 modules complete'}
+function go(t){cur=t;document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.textContent==t));V[t]();scrollTo(0,0)}
+$('#nav').innerHTML=Object.keys(V).map(t=>`<button>${t}</button>`).join('');document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>go(b.textContent));
+$('#q').oninput=e=>{const v=e.target.value.trim().toLowerCase();if(!v){go(cur);return}
+const r=[...IT.map(z=>({...z,k:'Module '+(z.m+1),c:COL[z.m]})),...MD.map(z=>({...z,k:'Medication',c:'#ffd6e0'}))].filter(z=>(z.t+' '+z.x).toLowerCase().includes(v)).slice(0,40);
+$('#app').innerHTML=`<h2>${r.length} result(s) for "${v}"</h2>`+r.map(z=>`<details open style="--c:${z.c}"><summary>${z.t} <span class=pill>${z.k}</span></summary><p>${z.x}</p></details>`).join('')};
+prog();go('Modules');
+</script></body></html>
